@@ -13,34 +13,30 @@
         .text-kemenag { color: #0b5b9e; font-weight: 800; }
         .clock-box { background-color: #eef2f9; color: #0b5b9e; border-radius: 8px; font-weight: bold; }
         
-        /* Tombol Top Right */
         .btn-top-action { background: #ffffff; color: #0b5b9e; border: 2px solid #0b5b9e; transition: all 0.3s ease; }
         .btn-top-action:hover { background: #0b5b9e; color: white; transform: scale(1.05); }
 
         .left-banner { background: linear-gradient(135deg, #4ade80 0%, #0284c7 100%); border-radius: 20px; position: relative; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
         
-        /* ANIMASI LOGO & TEKS */
         @keyframes smoothFloat { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-8px) rotate(1.5deg); } }
         .brand-wrapper { display: flex; align-items: center; gap: 20px; animation: smoothFloat 4s ease-in-out infinite; }
         .animated-logo { max-width: 100px; height: auto; display: block; }
         .brand-text { font-size: 2.3rem; color: white; line-height: 1.1; letter-spacing: 1px; }
 
-        /* ANIMASI TRANSISI HALAMAN MODERN (Masuk dari Kiri) */
-        @keyframes pageTransition {
-            from { opacity: 0; transform: translateX(-30px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
+        @keyframes pageTransition { from { opacity: 0; transform: translateX(-30px); } to { opacity: 1; transform: translateX(0); } }
         .right-form { background: #ffffff; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.08); animation: pageTransition 0.6s cubic-bezier(0.23, 1, 0.32, 1) both; }
         
         .form-control { background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px 15px; }
         .form-control:focus { border-color: #4ade80; box-shadow: 0 0 0 0.25rem rgba(74, 222, 128, 0.25); }
         
-        /* Form Box Survei */
-        .survey-box { border: 1px solid #e2e8f0; border-radius: 10px; padding: 15px 20px; margin-bottom: 15px; background-color: #ffffff; transition: 0.3s; }
-        .survey-box:hover { border-color: #4ade80; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
-        .form-check-input:checked { background-color: #0b5b9e; border-color: #0b5b9e; }
-        .form-check-label { cursor: pointer; margin-left: 5px; font-weight: 500; }
+        .survey-box { border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; margin-bottom: 20px; background-color: #f8fafc; }
         
+        /* Modifikasi Label Checkbox/Radio agar tampil seperti Card Button */
+        .btn-check:checked + .btn-outline-success { background-color: #198754; color: white; border-color: #198754; box-shadow: 0 8px 20px rgba(25, 135, 84, 0.3); transform: translateY(-2px); }
+        .btn-check:checked + .btn-outline-danger { background-color: #dc3545; color: white; border-color: #dc3545; box-shadow: 0 8px 20px rgba(220, 53, 69, 0.3); transform: translateY(-2px); }
+        .btn-outline-success, .btn-outline-danger { transition: all 0.3s ease; border-width: 2px; }
+        .btn-outline-success:hover, .btn-outline-danger:hover { transform: translateY(-2px); }
+
         .btn-submit { background: linear-gradient(90deg, #1cb5e0 0%, #4ade80 100%); color: white; transition: all 0.3s; }
         .btn-submit:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(28, 181, 224, 0.3); color: white; }
         .custom-footer { background-color: #1a1e21; color: #d1d5db; font-size: 0.9rem; padding: 20px 0; border-top: 3px solid #4ade80; }
@@ -111,53 +107,24 @@
                                 <input type="text" name="nama" class="form-control" placeholder="Boleh dikosongkan jika ingin anonim">
                             </div>
 
-                            <p class="fw-bold text-dark mb-3">Berikan penilaian Anda (1 = Sangat Buruk, 5 = Sangat Baik):</p>
-
                             <div class="survey-box">
-                                <label class="fw-bold d-block mb-2 text-dark"><i class="bi bi-headset"></i> Kualitas Pelayanan:</label>
-                                <div class="d-flex flex-wrap gap-4 px-2">
-                                    @for($i=1; $i<=5; $i++)
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="kualitas" id="q1_{{$i}}" value="{{$i}}" required>
-                                        <label class="form-check-label" for="q1_{{$i}}">{{$i}}</label>
-                                    </div>
-                                    @endfor
-                                </div>
-                            </div>
+                                <p class="text-dark mb-4 fw-bold" style="line-height: 1.6; font-size: 1.05rem;">
+                                    Berdasarkan pengalaman Anda hari ini, bagaimana penilaian Anda secara keseluruhan mengenai kualitas pelayanan, kelengkapan fasilitas, keramahan petugas, serta kecepatan layanan di Kanwil Kemenag Provinsi Jambi?
+                                </p>
 
-                            <div class="survey-box">
-                                <label class="fw-bold d-block mb-2 text-dark"><i class="bi bi-building"></i> Fasilitas yang Tersedia:</label>
-                                <div class="d-flex flex-wrap gap-4 px-2">
-                                    @for($i=1; $i<=5; $i++)
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="fasilitas" id="q2_{{$i}}" value="{{$i}}" required>
-                                        <label class="form-check-label" for="q2_{{$i}}">{{$i}}</label>
+                                <div class="row g-3 text-center">
+                                    <div class="col-6">
+                                        <input type="radio" class="btn-check" name="kepuasan" id="puas" value="Puas" required>
+                                        <label class="btn btn-outline-success w-100 py-3 fw-bold rounded-4" for="puas">
+                                            <i class="bi bi-emoji-smile-fill fs-1 d-block mb-2"></i> PUAS
+                                        </label>
                                     </div>
-                                    @endfor
-                                </div>
-                            </div>
-
-                            <div class="survey-box">
-                                <label class="fw-bold d-block mb-2 text-dark"><i class="bi bi-emoji-smile"></i> Keramahan Staf:</label>
-                                <div class="d-flex flex-wrap gap-4 px-2">
-                                    @for($i=1; $i<=5; $i++)
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="keramahan" id="q3_{{$i}}" value="{{$i}}" required>
-                                        <label class="form-check-label" for="q3_{{$i}}">{{$i}}</label>
+                                    <div class="col-6">
+                                        <input type="radio" class="btn-check" name="kepuasan" id="tidak_puas" value="Tidak Puas" required>
+                                        <label class="btn btn-outline-danger w-100 py-3 fw-bold rounded-4" for="tidak_puas">
+                                            <i class="bi bi-emoji-frown-fill fs-1 d-block mb-2"></i> TIDAK PUAS
+                                        </label>
                                     </div>
-                                    @endfor
-                                </div>
-                            </div>
-
-                            <div class="survey-box">
-                                <label class="fw-bold d-block mb-2 text-dark"><i class="bi bi-clock-history"></i> Kecepatan Layanan:</label>
-                                <div class="d-flex flex-wrap gap-4 px-2">
-                                    @for($i=1; $i<=5; $i++)
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="kecepatan" id="q4_{{$i}}" value="{{$i}}" required>
-                                        <label class="form-check-label" for="q4_{{$i}}">{{$i}}</label>
-                                    </div>
-                                    @endfor
                                 </div>
                             </div>
 

@@ -4,11 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Guest;
-use App\Models\Survey; // <-- Pastikan ini ada untuk memanggil tabel survei
 
 class GuestController extends Controller
 {
-    // === FITUR BUKU TAMU ===
+    // === FITUR BUKU TAMU TERINTEGRASI ===
     public function create()
     {
         return view('guest.form'); 
@@ -24,6 +23,7 @@ class GuestController extends Controller
             'tujuan'   => 'required',
             'catatan'  => 'nullable',
             'ttd'      => 'required',
+            'kepuasan' => 'required|in:Puas,Tidak Puas', // Validasi kepuasan
         ], [
             'no_hp.numeric' => 'Nomor HP/WA hanya boleh berisi angka.',
             'email.email'   => 'Format alamat email tidak valid.'
@@ -37,30 +37,9 @@ class GuestController extends Controller
             'tujuan'   => $request->tujuan,
             'catatan'  => $request->catatan,
             'ttd'      => $request->ttd,
+            'kepuasan' => $request->kepuasan, // Menyimpan kepuasan
         ]);
 
-        return redirect()->back()->with('success', 'Data berhasil dikirim! Terima kasih atas kunjungan Anda.');
-    }
-
-    // === FITUR INDEKS KEPUASAN (BARU) ===
-    public function indeks()
-    {
-        return view('guest.indeks'); // Menampilkan halaman survei
-    }
-
-    public function storeIndeks(Request $request)
-    {
-        // Validasi isian survei (angka 1-5 wajib diisi)
-        $request->validate([
-            'kualitas'  => 'required|integer',
-            'fasilitas' => 'required|integer',
-            'keramahan' => 'required|integer',
-            'kecepatan' => 'required|integer',
-        ]);
-
-        // Simpan ke database
-        Survey::create($request->all());
-
-        return redirect()->back()->with('success', 'Terima kasih atas penilaian dan masukan Anda!');
+        return redirect()->back()->with('success', 'Data berhasil dikirim! Terima kasih atas kunjungan dan penilaian Anda.');
     }
 }

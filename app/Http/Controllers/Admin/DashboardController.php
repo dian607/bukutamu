@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Guest;
-use App\Models\Survey;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
@@ -17,19 +16,16 @@ class DashboardController extends Controller
         $currentMonth = Carbon::now()->month;
         $currentYear = Carbon::now()->year;
 
-        // 1. Data Card Statistik
         $tamuHariIni = Guest::whereDate('created_at', $today)->count();
         $tamuBulanIni = Guest::whereMonth('created_at', $currentMonth)
                              ->whereYear('created_at', $currentYear)->count();
         
-        // Menghitung rata-rata dari ke-4 indikator kepuasan
-        $rataKepuasan = Survey::selectRaw('(AVG(kualitas) + AVG(fasilitas) + AVG(keramahan) + AVG(kecepatan)) / 4 as total_avg')->value('total_avg');
-        $rataKepuasan = $rataKepuasan ? number_format($rataKepuasan, 1) : '0.0';
+        // Membaca status kepuasan langsung dari tabel tamu (Guest)
+        $totalPuas = Guest::where('kepuasan', 'Puas')->count();
+        $totalTidakPuas = Guest::where('kepuasan', 'Tidak Puas')->count();
 
-        // 2. Data Tabel Tamu Terbaru (5 Terakhir)
         $tamuTerbaru = Guest::latest()->take(5)->get();
 
-        // 3. Data Grafik Kunjungan 7 Hari Terakhir
         $grafikData = Guest::select(DB::raw('DATE(created_at) as tanggal'), DB::raw('count(*) as total'))
             ->where('created_at', '>=', Carbon::now()->subDays(6)->startOfDay())
             ->groupBy('tanggal')
@@ -39,7 +35,6 @@ class DashboardController extends Controller
         $chartLabels = [];
         $chartTotals = [];
         
-        // Memastikan 7 hari terakhir terisi semua meski 0 tamu
         for ($i = 6; $i >= 0; $i--) {
             $date = Carbon::now()->subDays($i)->format('Y-m-d');
             $displayDate = Carbon::now()->subDays($i)->format('d M');
@@ -50,7 +45,7 @@ class DashboardController extends Controller
         }
 
         return view('admin.dashboard', compact(
-            'tamuHariIni', 'tamuBulanIni', 'rataKepuasan', 'tamuTerbaru', 'chartLabels', 'chartTotals'
+            'tamuHariIni', 'tamuBulanIni', 'totalPuas', 'totalTidakPuas', 'tamuTerbaru', 'chartLabels', 'chartTotals'
         ));
     }
 }

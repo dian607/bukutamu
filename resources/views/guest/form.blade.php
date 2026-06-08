@@ -14,36 +14,29 @@
         .text-kemenag { color: #0b5b9e; font-weight: 800; }
         .clock-box { background-color: #eef2f9; color: #0b5b9e; border-radius: 8px; font-weight: bold; }
         
-        /* Tombol Top Right */
-        .btn-top-action {
-            background: linear-gradient(90deg, #58d68d, #2874a6); color: white; border: none; box-shadow: 0 4px 10px rgba(40, 116, 166, 0.3); transition: all 0.3s ease;
-        }
-        .btn-top-action:hover { transform: scale(1.05) translateY(-2px); color: white; box-shadow: 0 6px 15px rgba(40, 116, 166, 0.4); }
-
         .left-banner { background: linear-gradient(135deg, #4ade80 0%, #0284c7 100%); border-radius: 20px; position: relative; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
         
-        /* ANIMASI LOGO & TEKS */
         @keyframes smoothFloat { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-8px) rotate(1.5deg); } }
         .brand-wrapper { display: flex; align-items: center; gap: 20px; animation: smoothFloat 4s ease-in-out infinite; }
         .animated-logo { max-width: 100px; height: auto; display: block; }
         .brand-text { font-size: 2.3rem; color: white; line-height: 1.1; letter-spacing: 1px; }
 
-        /* ANIMASI TRANSISI HALAMAN */
         @keyframes pageTransition { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
         .right-form { background: #ffffff; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.08); animation: pageTransition 0.6s cubic-bezier(0.23, 1, 0.32, 1) both; }
         
-        .form-control { background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px 15px; }
-        .form-control:focus { border-color: #4ade80; box-shadow: 0 0 0 0.25rem rgba(74, 222, 128, 0.25); }
+        .form-control, .form-select { background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px 15px; }
+        .form-control:focus, .form-select:focus { border-color: #4ade80; box-shadow: 0 0 0 0.25rem rgba(74, 222, 128, 0.25); }
         
-        /* CANVAS TANDA TANGAN DENGAN KURSOR HITAM */
+        .signature-wrapper { width: 100%; animation: fadeIn 0.8s ease-in-out; }
         #sig-canvas { 
-            border: 2px dashed #0b5b9e; 
-            border-radius: 10px; 
-            /* Menggunakan kursor custom berbentuk '+' tebal berwarna hitam */
-            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><line x1="10" y1="0" x2="10" y2="20" stroke="black" stroke-width="2"/><line x1="0" y1="10" x2="20" y2="10" stroke="black" stroke-width="2"/></svg>') 10 10, crosshair; 
-            width: 100%; 
-            background-color: #f8fafc; 
+            border: 2px dashed #0b5b9e; border-radius: 12px; cursor: crosshair; width: 100%; height: 250px;
+            background-color: #f8fafc; touch-action: none; transition: all 0.3s ease; box-shadow: inset 0 2px 5px rgba(0,0,0,0.03);
         }
+        
+        /* Desain Radio Button Profesional */
+        .btn-check:checked + .btn-outline-success { background-color: #198754; color: white; border-color: #198754; box-shadow: 0 8px 20px rgba(25, 135, 84, 0.3); transform: translateY(-2px); }
+        .btn-check:checked + .btn-outline-danger { background-color: #dc3545; color: white; border-color: #dc3545; box-shadow: 0 8px 20px rgba(220, 53, 69, 0.3); transform: translateY(-2px); }
+        .btn-outline-success, .btn-outline-danger { transition: all 0.3s ease; border-width: 2px; }
         
         .btn-submit { background: linear-gradient(90deg, #1cb5e0 0%, #000851 100%); color: white; transition: all 0.3s; }
         .btn-submit:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0, 8, 81, 0.3); color: white; }
@@ -67,9 +60,6 @@
                     <small class="text-muted fw-bold d-block mb-1" id="currentDate"></small>
                     <div class="clock-box px-3 py-1 fs-6 d-inline-block" id="digitalClock"><i class="bi bi-clock"></i> 00:00:00</div>
                 </div>
-                <a href="{{ route('guest.indeks') }}" class="btn btn-top-action rounded-pill px-4 py-2 fw-bold text-decoration-none d-flex align-items-center">
-                    <i class="bi bi-star-fill text-warning me-2"></i> Indeks Kepuasan
-                </a>
             </div>
         </div>
     </header>
@@ -84,7 +74,7 @@
                                 <span class="badge bg-light text-success mb-4 px-3 py-2 fs-6 rounded-pill">Selamat Datang!</span>
                                 <h1 class="fw-bold mb-4" style="font-size: 2.5rem; color: white;">Buku Tamu Digital</h1>
                                 <p class="fs-6 mb-5" style="line-height: 1.8; opacity: 0.9; color: white;">
-                                    Kami senang menyambut Anda. Silakan isi data diri Anda pada formulir di samping untuk keperluan dokumentasi dan pelayanan yang lebih baik.
+                                    Kami senang menyambut Anda. Silakan isi data diri Anda pada formulir di samping untuk keperluan registrasi dan penilaian layanan kami.
                                 </p>
                             </div>
                             <div class="mt-auto border-top pt-4" style="border-color: rgba(255, 255, 255, 0.3) !important;">
@@ -125,15 +115,15 @@
                                     <input type="text" name="nama" class="form-control" placeholder="Masukkan nama lengkap Anda" required>
                                 </div>
                                 <div class="col-md-6 mt-3 mt-md-0">
-                                    <label class="form-label text-dark fw-bold"><i class="bi bi-building me-1"></i> Asal Instansi/Perusahaan <span class="text-danger">*</span></label>
-                                    <input type="text" name="instansi" class="form-control" placeholder="Contoh: Dinkes/Umum/Pribadi" required>
+                                    <label class="form-label text-dark fw-bold"><i class="bi bi-building me-1"></i> Asal Instansi/Perusahaan/Personal <span class="text-danger">*</span></label>
+                                    <input type="text" name="instansi" class="form-control" placeholder="Contoh: Dirjen/Kemenag RI/Dinkes" required>
                                 </div>
                             </div>
                             
                             <div class="row mb-4">
                                 <div class="col-md-6">
                                     <label class="form-label text-dark fw-bold"><i class="bi bi-telephone-fill me-1"></i> Nomor Telepon/WA <span class="text-danger">*</span></label>
-                                    <input type="number" name="no_hp" class="form-control" placeholder="Contoh: 081234567890" required>
+                                    <input type="number" name="no_hp" class="form-control" placeholder="Contoh: 085380987263" required>
                                 </div>
                                 <div class="col-md-6 mt-3 mt-md-0">
                                     <label class="form-label text-dark fw-bold"><i class="bi bi-envelope-fill me-1"></i> Alamat Email <span class="text-secondary fw-normal">(Optional)</span></label>
@@ -142,30 +132,94 @@
                             </div>
 
                             <div class="mb-4">
-                                <label class="form-label text-dark fw-bold"><i class="bi bi-chat-square-text-fill me-1"></i> Keperluan Kunjungan <span class="text-danger">*</span></label>
-                                <textarea name="tujuan" class="form-control" rows="2" placeholder="Jelaskan tujuan kunjungan Anda" required></textarea>
+                                <label class="form-label text-dark fw-bold"><i class="bi bi-list-check me-1"></i> Keperluan Kunjungan <span class="text-danger">*</span></label>
+                                <select name="tujuan" class="form-select" required>
+                                    <option value="" selected disabled>-- Pilih Keperluan Kunjungan Anda --</option>
+                                    <option value="IZIN BELAJAR BAGI PNS KEMENAG">IZIN BELAJAR BAGI PNS KEMENAG</option>
+                                    <option value="TUGAS BELAJAR BAGI PNS">TUGAS BELAJAR BAGI PNS</option>
+                                    <option value="IZIN PENELITIAN DI MADRASAH">IZIN PENELITIAN DI MADRASAH</option>
+                                    <option value="KONSULTASI WAKAF">KONSULTASI WAKAF</option>
+                                    <option value="LAYANAN IZIN OPERASIONAL PENDIDIKAN TAKLIMUL QURAN LIL AULAD">LAYANAN IZIN OPERASIONAL PENDIDIKAN TAKLIMUL QURAN LIL AULAD</option>
+                                    <option value="LAYANAN BANTUAN MASJID/MUSHALLA">LAYANAN BANTUAN MASJID/MUSHALLA</option>
+                                    <option value="LAYANAN DATA DAN INFORMASI">LAYANAN DATA DAN INFORMASI</option>
+                                    <option value="LAYANAN FASILITASI KONSULTASI PELESTARIAN PERKAWINAN">LAYANAN FASILITASI KONSULTASI PELESTARIAN PERKAWINAN</option>
+                                    <option value="LAYANAN IZIN OPERASIONAL MADRASAH DINIYAH TINGKAT ULYA">LAYANAN IZIN OPERASIONAL MADRASAH DINIYAH TINGKAT ULYA</option>
+                                    <option value="LAYANAN IZIN OPERASIONAL PROGRAM ULYA WAJAR DIKDAS">LAYANAN IZIN OPERASIONAL PROGRAM ULYA WAJAR DIKDAS</option>
+                                    <option value="LAYANAN KONSULTASI SYARI'AH DAN PAHAM ALIRAN KEAGAMAAN">LAYANAN KONSULTASI SYARI'AH DAN PAHAM ALIRAN KEAGAMAAN</option>
+                                    <option value="LAYANAN LEGALISASI BUKU NIKAH / SURAT KETERANGAN STATUS PERNIKAHAN PADA BIMAS ISLAM">LAYANAN LEGALISASI BUKU NIKAH / SURAT KETERANGAN STATUS PERNIKAHAN PADA BIMAS ISLAM</option>
+                                    <option value="LAYANAN PENGADUAN MASYARAKAT">LAYANAN PENGADUAN MASYARAKAT</option>
+                                    <option value="LAYANAN PENGAJUAN IZIN OPERASIONAL PENDIRIAN PONDOK PESANTREN">LAYANAN PENGAJUAN IZIN OPERASIONAL PENDIRIAN PONDOK PESANTREN</option>
+                                    <option value="LAYANAN PENGAJUAN PROPOSAL BANTUAN PONDOK PESANTREN/MADRASAH DINIYAH TAKMILIYAH/PENDIDIKAN AL-QURAN">LAYANAN PENGAJUAN PROPOSAL BANTUAN PONDOK PESANTREN/MADRASAH DINIYAH TAKMILIYAH/PENDIDIKAN AL-QURAN</option>
+                                    <option value="LAYANAN PENGUKURAN ARAH KIBLAT MASJID/MUSHALLA">LAYANAN PENGUKURAN ARAH KIBLAT MASJID/MUSHALLA</option>
+                                    <option value="LAYANAN UPLOAD INFORMASI PENTING">LAYANAN UPLOAD INFORMASI PENTING</option>
+                                    <option value="LEGALISASI BUKU NIKAH/SURAT KETERANGAN STATUS PERNIKAHAN PADA BIMAS KATOLIK">LEGALISASI BUKU NIKAH/SURAT KETERANGAN STATUS PERNIKAHAN PADA BIMAS KATOLIK</option>
+                                    <option value="LEGALISASI IJAZAH PADA BIMAS KATOLIK">LEGALISASI IJAZAH PADA BIMAS KATOLIK</option>
+                                    <option value="LEGALISIR DOKUMEN IJAZAH MADRASAH">LEGALISIR DOKUMEN IJAZAH MADRASAH</option>
+                                    <option value="LEGALISIR DOKUMEN KEPEGAWAIAN">LEGALISIR DOKUMEN KEPEGAWAIAN</option>
+                                    <option value="LEGALISIR DOKUMEN PIAGAM">LEGALISIR DOKUMEN PIAGAM</option>
+                                    <option value="LEGALISIR IJAZAH PONDOK PESANTREN SALAFIYAH (PPS)">LEGALISIR IJAZAH PONDOK PESANTREN SALAFIYAH (PPS)</option>
+                                    <option value="PENGAJUAN IZIN MAGANG PADA KANWIL">PENGAJUAN IZIN MAGANG PADA KANWIL</option>
+                                    <option value="PERMOHONAN AUDIENSI DENGAN KA. KANWIL">PERMOHONAN AUDIENSI DENGAN KA. KANWIL</option>
+                                    <option value="PERMOHONAN LEGALISASI LEMBAGA AMIL ZAKAT">PERMOHONAN LEGALISASI LEMBAGA AMIL ZAKAT</option>
+                                    <option value="PERMOHONAN PENCERAMAH AGAMA">PERMOHONAN PENCERAMAH AGAMA</option>
+                                    <option value="PERMOHONAN ROHANIAWAN">PERMOHONAN ROHANIAWAN</option>
+                                    <option value="PERMOHONAN SEBAGAI NARA SUMBER PADA BIMAS KATOLIK">PERMOHONAN SEBAGAI NARA SUMBER PADA BIMAS KATOLIK</option>
+                                    <option value="REKOMENDASI IZIN BELAJAR AGAMA BAGI WNA">REKOMENDASI IZIN BELAJAR AGAMA BAGI WNA</option>
+                                    <option value="REKOMENDASI IZIN TINGGAL TERBATAS (ITAS) BAGI WNA">REKOMENDASI IZIN TINGGAL TERBATAS (ITAS) BAGI WNA</option>
+                                    <option value="REKOMENDASI KEGIATAN KEAGAMAAN">REKOMENDASI KEGIATAN KEAGAMAAN</option>
+                                    <option value="REKOMENDASI PASPOR PENDIDIKAN DAN KEAGAMAAN">REKOMENDASI PASPOR PENDIDIKAN DAN KEAGAMAAN</option>
+                                    <option value="REKOMENDASI PINDAH SEKOLAH">REKOMENDASI PINDAH SEKOLAH</option>
+                                    <option value="REKOMENDASI RPTKA (RENCANA PENGGUNAAN TENAGA KERJA ASING) DAN IMTA BAGI WNA">REKOMENDASI RPTKA (RENCANA PENGGUNAAN TENAGA KERJA ASING) DAN IMTA BAGI WNA</option>
+                                    <option value="SERTIFIKASI HALAL">SERTIFIKASI HALAL</option>
+                                    <option value="SURAT KETERANGAN PENGGANTIAN IJAZAH">SURAT KETERANGAN PENGGANTIAN IJAZAH</option>
+                                    <option value="TATA PERSURATAN (SURAT KELUAR)">TATA PERSURATAN (SURAT KELUAR)</option>
+                                    <option value="TATA PERSURATAN (SURAT MASUK)">TATA PERSURATAN (SURAT MASUK)</option>
+                                    <option value="Keperluan lainnya">Keperluan lainnya...</option>
+                                </select>
                             </div>
 
                             <div class="mb-4">
                                 <label class="form-label text-dark fw-bold"><i class="bi bi-journal-text me-1"></i> Catatan Tambahan <span class="text-secondary fw-normal">(Optional)</span></label>
-                                <textarea name="catatan" class="form-control" rows="2" placeholder="Informasi tambahan jika ada"></textarea>
+                                <textarea name="catatan" class="form-control" rows="2" placeholder="Informasi tambahan atau rincian layanan jika diperlukan"></textarea>
                             </div>
 
                             <div class="mb-4">
                                 <label class="form-label text-dark fw-bold d-block"><i class="bi bi-pen-fill me-1"></i> Tanda Tangan <span class="text-danger">*</span></label>
-                                <div class="d-inline-block w-100" style="max-width: 400px;">
-                                    <canvas id="sig-canvas" height="150" class="shadow-sm"></canvas>
+                                <div class="signature-wrapper">
+                                    <canvas id="sig-canvas" class="shadow-sm"></canvas>
                                     <textarea name="ttd" id="sig-dataUrl" style="display:none;"></textarea>
-                                    <div class="text-end mt-2">
-                                        <button type="button" class="btn btn-sm btn-outline-danger fw-bold rounded-pill px-3" id="sig-clearBtn">
-                                            <i class="bi bi-eraser-fill"></i> Hapus Tanda Tangan
+                                    
+                                    <div class="d-flex justify-content-end gap-2 mt-3">
+                                        <button type="button" class="btn btn-sm btn-outline-secondary fw-bold rounded-pill px-4 py-2" id="sig-undoBtn">
+                                            <i class="bi bi-arrow-counterclockwise me-1"></i> Undo
+                                        </button>
+                                        <button type="button" class="btn btn-sm btn-outline-danger fw-bold rounded-pill px-4 py-2" id="sig-clearBtn">
+                                            <i class="bi bi-eraser-fill me-1"></i> Hapus Semua
                                         </button>
                                     </div>
                                 </div>
                             </div>
 
-                            <button type="submit" class="btn btn-submit w-100 py-3 fw-bold fs-5 rounded-4 mt-2" id="submitBtn">
-                                <i class="bi bi-send-check-fill me-2"></i> KIRIM REGISTRASI
+                            <div class="mb-5 mt-4 p-4 rounded-4" style="background-color: #f8fafc; border: 1px dashed #cbd5e1;">
+                                <label class="form-label text-dark fw-bold fs-5 text-center d-block mb-3"><i class="bi bi-star-fill text-warning me-2"></i> Apakah Anda puas terhadap layanan kami? <span class="text-danger">*</span></label>
+                                <div class="row g-3 text-center">
+                                    <div class="col-6">
+                                        <input type="radio" class="btn-check" name="kepuasan" id="puas" value="Puas" required>
+                                        <label class="btn btn-outline-success w-100 py-3 fw-bold rounded-4" for="puas">
+                                            <i class="bi bi-emoji-smile-fill fs-2 d-block mb-1"></i> PUAS
+                                        </label>
+                                    </div>
+                                    <div class="col-6">
+                                        <input type="radio" class="btn-check" name="kepuasan" id="tidak_puas" value="Tidak Puas" required>
+                                        <label class="btn btn-outline-danger w-100 py-3 fw-bold rounded-4" for="tidak_puas">
+                                            <i class="bi bi-emoji-frown-fill fs-2 d-block mb-1"></i> TIDAK PUAS
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-submit w-100 py-3 fw-bold fs-5 rounded-4" id="submitBtn">
+                                <i class="bi bi-send-check-fill me-2"></i> KIRIM REGISTRASI & PENILAIAN
                             </button>
                         </form>
                     </div>
@@ -185,8 +239,70 @@
             document.getElementById('digitalClock').innerHTML = `<i class="bi bi-clock me-1"></i> ${now.toLocaleTimeString('id-ID', { hour12: false })}`;
         } setInterval(updateClock, 1000); updateClock();
 
-        // SCRIPT CANVAS
-        (function(){ var canvas=document.getElementById("sig-canvas"),ctx=canvas.getContext("2d"),drawing=!1;function resizeCanvas(){var a=Math.max(window.devicePixelRatio||1,1);canvas.width=canvas.offsetWidth*a,canvas.height=canvas.offsetHeight*a,ctx.scale(a,a)}window.onresize=resizeCanvas,resizeCanvas();function getPos(a){var b=canvas.getBoundingClientRect();return{x:(a.clientX||a.touches&&a.touches[0].clientX)-b.left,y:(a.clientY||a.touches&&a.touches[0].clientY)-b.top}}function startPos(a){a.preventDefault(),drawing=!0,draw(a)}function endPos(a){a.preventDefault(),drawing=!1,ctx.beginPath()}function draw(a){if(a.preventDefault(),!drawing)return;var b=getPos(a);ctx.lineWidth=3,ctx.lineCap="round",ctx.strokeStyle="#000000",ctx.lineTo(b.x,b.y),ctx.stroke(),ctx.beginPath(),ctx.moveTo(b.x,b.y)}canvas.addEventListener("mousedown",startPos),canvas.addEventListener("mouseup",endPos),canvas.addEventListener("mousemove",draw),canvas.addEventListener("touchstart",startPos,{passive:!1}),canvas.addEventListener("touchend",endPos,{passive:!1}),canvas.addEventListener("touchmove",draw,{passive:!1}),document.getElementById("sig-clearBtn").addEventListener("click",function(){ctx.clearRect(0,0,canvas.width/(window.devicePixelRatio||1),canvas.height/(window.devicePixelRatio||1))}),document.getElementById("guestForm").addEventListener("submit",function(){document.getElementById("sig-dataUrl").value=canvas.toDataURL()})})();
+        // SCRIPT CANVAS TANDA TANGAN
+        (function() {
+            var canvas = document.getElementById("sig-canvas");
+            var ctx = canvas.getContext("2d");
+            var drawing = false;
+            var strokeHistory = [];
+
+            function saveState() {
+                strokeHistory.push(canvas.toDataURL());
+            }
+
+            function resizeCanvas() {
+                var rect = canvas.getBoundingClientRect();
+                canvas.width = rect.width;
+                canvas.height = rect.height;
+                ctx.lineWidth = 3;
+                ctx.lineCap = "round";
+                ctx.strokeStyle = "#000000";
+            }
+            window.addEventListener("resize", resizeCanvas);
+            resizeCanvas();
+            saveState(); 
+
+            function getPos(e) {
+                var rect = canvas.getBoundingClientRect();
+                var clientX = e.clientX || (e.touches && e.touches[0].clientX);
+                var clientY = e.clientY || (e.touches && e.touches[0].clientY);
+                return { x: clientX - rect.left, y: clientY - rect.top };
+            }
+
+            function startPos(e) { e.preventDefault(); drawing = true; var pos = getPos(e); ctx.beginPath(); ctx.moveTo(pos.x, pos.y); draw(e); }
+            function endPos(e) { e.preventDefault(); if(drawing) { drawing = false; ctx.beginPath(); saveState(); } }
+            function draw(e) { e.preventDefault(); if (!drawing) return; var pos = getPos(e); ctx.lineTo(pos.x, pos.y); ctx.stroke(); ctx.beginPath(); ctx.moveTo(pos.x, pos.y); }
+
+            canvas.addEventListener("mousedown", startPos);
+            canvas.addEventListener("mouseup", endPos);
+            canvas.addEventListener("mousemove", draw);
+            
+            canvas.addEventListener("touchstart", startPos, { passive: false });
+            canvas.addEventListener("touchend", endPos, { passive: false });
+            canvas.addEventListener("touchmove", draw, { passive: false });
+
+            document.getElementById("sig-undoBtn").addEventListener("click", function() {
+                if (strokeHistory.length > 1) {
+                    strokeHistory.pop();
+                    var prevImg = new Image();
+                    prevImg.src = strokeHistory[strokeHistory.length - 1];
+                    prevImg.onload = function() {
+                        ctx.clearRect(0, 0, canvas.width, canvas.height);
+                        ctx.drawImage(prevImg, 0, 0);
+                    };
+                }
+            });
+
+            document.getElementById("sig-clearBtn").addEventListener("click", function() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                document.getElementById("sig-dataUrl").value = "";
+                strokeHistory = []; saveState();
+            });
+
+            document.getElementById("guestForm").addEventListener("submit", function() {
+                document.getElementById("sig-dataUrl").value = canvas.toDataURL();
+            });
+        })();
     </script>
 </body>
 </html>

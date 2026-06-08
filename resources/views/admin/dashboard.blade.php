@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('title', 'Dashboard - Admin Buku Tamu')
-@section('page_title', 'Overview Dashboard')
+@section('page_title', 'Dashboard')
 
 @push('styles')
 <style>
@@ -49,10 +49,17 @@
 
     <div class="col-md-4">
         <div class="stat-card card-white">
-            <i class="bi bi-star-fill stat-icon text-warning"></i>
-            <div class="stat-title">Rata-rata Kepuasan</div>
-            <div class="stat-value text-dark">{{ $rataKepuasan }} <span class="fs-5 text-muted">/ 5.0</span></div>
-            <div class="text-warning fw-bold" style="font-size: 0.85rem;"><i class="bi bi-stars"></i> Sangat Baik</div>
+            <i class="bi bi-emoji-smile-fill stat-icon text-success"></i>
+            <div class="stat-title">Indeks Kepuasan</div>
+            <div class="d-flex align-items-center gap-3 mb-2 mt-2">
+                <div class="text-success">
+                    <span class="fs-2 fw-bold">{{ $totalPuas }}</span> <span class="small fw-bold">PUAS</span>
+                </div>
+                <div class="text-danger border-start ps-3">
+                    <span class="fs-2 fw-bold">{{ $totalTidakPuas }}</span> <span class="small fw-bold">TIDAK PUAS</span>
+                </div>
+            </div>
+            <div class="text-success fw-bold mt-1" style="font-size: 0.85rem;"><i class="bi bi-bar-chart-fill"></i> Data Survei Terbaru</div>
         </div>
     </div>
 </div>

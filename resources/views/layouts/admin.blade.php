@@ -63,7 +63,7 @@
         <nav id="sidebar">
             <div class="sidebar-header">
                 <img src="{{ asset('images/logo-kemenag.png') }}" width="35" class="me-2" alt="Logo">
-                <h4>Kanwil Jambi</h4>
+                <h4>Kanwil Kemenag</h4>
             </div>
             <ul class="sidebar-menu">
                 <li class="text-xs fw-bold text-uppercase text-muted mb-2 px-3 mt-2" style="font-size: 0.75rem;">Main Menu</li>

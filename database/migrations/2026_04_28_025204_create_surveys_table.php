@@ -6,22 +6,26 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    /**
+     * Run the migrations.
+     */
     public function up(): void
     {
-        Schema::create('surveys', function (Blueprint $table) {
+        Schema::create('surveis', function (Blueprint $table) {
             $table->id();
-            $table->string('nama')->nullable(); // Opsional (Boleh kosong)
-            $table->integer('kualitas');
-            $table->integer('fasilitas');
-            $table->integer('keramahan');
-            $table->integer('kecepatan');
-            $table->text('saran')->nullable(); // Opsional
+            // Kolom baru sesuai form yang disederhanakan
+            $table->string('nama')->nullable(); // nullable berarti boleh dikosongkan (anonim)
+            $table->string('kepuasan');         // Isinya akan "Puas" atau "Tidak Puas"
+            $table->text('saran')->nullable();  // nullable berarti boleh dikosongkan
             $table->timestamps();
         });
     }
 
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
-        Schema::dropIfExists('surveys');
+        Schema::dropIfExists('surveis');
     }
 };

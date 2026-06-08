@@ -7,7 +7,8 @@
     .panel-container { background: white; border-radius: 20px; padding: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); border: 1px solid #f3f4f6; }
     .table-modern th { background: #f9fafb; color: #6b7280; font-weight: 600; font-size: 0.85rem; text-transform: uppercase; border-bottom: 2px solid #e5e7eb; padding: 15px; }
     .table-modern td { padding: 15px; vertical-align: middle; color: #374151; font-weight: 500; border-bottom: 1px solid #f3f4f6; }
-    .btn-action { border-radius: 8px; padding: 5px 10px; font-size: 0.85rem; margin-right: 3px; }
+    /* Menghapus margin-right manual karena akan digantikan oleh gap-1 dari Flexbox */
+    .btn-action { border-radius: 8px; padding: 5px 10px; font-size: 0.85rem; }
 </style>
 @endpush
 
@@ -40,7 +41,8 @@
                     <th>Kontak</th>
                     <th>Tujuan</th>
                     <th>Waktu Kedatangan</th>
-                    <th class="text-center">Aksi</th>
+                    <!-- Lebar kolom aksi disesuaikan agar pas menampung 3 tombol -->
+                    <th class="text-center" style="white-space: nowrap; width: 150px;">AKSI</th>
                 </tr>
             </thead>
             <tbody>
@@ -62,14 +64,19 @@
                         <div class="fw-bold">{{ $guest->created_at->format('d M Y') }}</div>
                         <div class="text-muted small">{{ $guest->created_at->format('H:i') }} WIB</div>
                     </td>
-                    <td class="text-center">
-                        <a href="{{ route('admin.bukutamu.show', $guest->id) }}" class="btn btn-info btn-action text-white" title="Lihat Detail & TTD"><i class="bi bi-eye"></i></a>
-                        <a href="{{ route('admin.bukutamu.edit', $guest->id) }}" class="btn btn-warning btn-action text-white" title="Edit"><i class="bi bi-pencil-square"></i></a>
-                        <form action="{{ route('admin.bukutamu.destroy', $guest->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?');">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-action" title="Hapus"><i class="bi bi-trash"></i></button>
-                        </form>
+                    <td>
+                        <!-- Kotak ajaib flex-nowrap agar tombol selalu berbaris rapi -->
+                        <div class="d-flex justify-content-center flex-nowrap gap-1">
+                            <a href="{{ route('admin.bukutamu.show', $guest->id) }}" class="btn btn-info btn-action text-white" title="Lihat Detail & TTD"><i class="bi bi-eye"></i></a>
+                            <a href="{{ route('admin.bukutamu.edit', $guest->id) }}" class="btn btn-warning btn-action text-white" title="Edit"><i class="bi bi-pencil-square"></i></a>
+                            
+                            <!-- Class d-inline dihapus dan diganti margin-padding 0 agar sejajar -->
+                            <form action="{{ route('admin.bukutamu.destroy', $guest->id) }}" method="POST" class="m-0 p-0" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger btn-action" title="Hapus"><i class="bi bi-trash"></i></button>
+                            </form>
+                        </div>
                     </td>
                 </tr>
                 @empty

@@ -3,27 +3,23 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\Survey;
+use App\Models\Guest; // Menggunakan model Guest
 
 class SurveiController extends Controller
 {
     public function index()
     {
-        // Menarik semua data survei dari terbaru
-        $surveys = Survey::latest()->paginate(10);
+        // Hanya menghitung tamu yang sudah mengisi kepuasan (mencegah error dari data lama)
+        $totalSurveys = Guest::whereNotNull('kepuasan')->count();
+        
+        $totalPuas = Guest::where('kepuasan', 'Puas')->count();
+        $totalTidakPuas = Guest::where('kepuasan', 'Tidak Puas')->count();
+        
+        $persentasePuas = $totalSurveys > 0 ? ($totalPuas / $totalSurveys) * 100 : 0;
 
-        // Menghitung rata-rata masing-masing aspek
-        $avgKualitas = Survey::avg('kualitas') ?? 0;
-        $avgFasilitas = Survey::avg('fasilitas') ?? 0;
-        $avgKeramahan = Survey::avg('keramahan') ?? 0;
-        $avgKecepatan = Survey::avg('kecepatan') ?? 0;
+        // Mengambil daftar tamu yang ada data kepuasannya
+        $surveys = Guest::whereNotNull('kepuasan')->latest()->paginate(10);
 
-        // Menghitung total rata-rata keseluruhan
-        $totalAvg = ($avgKualitas + $avgFasilitas + $avgKeramahan + $avgKecepatan) / 4;
-
-        return view('admin.survei.index', compact(
-            'surveys', 'avgKualitas', 'avgFasilitas', 'avgKeramahan', 'avgKecepatan', 'totalAvg'
-        ));
+        return view('admin.survei.index', compact('totalSurveys', 'totalPuas', 'totalTidakPuas', 'persentasePuas', 'surveys'));
     }
 }
