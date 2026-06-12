@@ -9,7 +9,6 @@ class Guest extends Model
 {
     use HasFactory;
 
-    // Tambahkan 'kepuasan' ke dalam array agar diizinkan masuk ke database
     protected $fillable = [
         'nama', 
         'instansi', 
@@ -18,6 +17,7 @@ class Guest extends Model
         'tujuan', 
         'catatan', 
         'ttd',
-        'kepuasan'
+        'kepuasan',
+        'saran' 
     ];
 }

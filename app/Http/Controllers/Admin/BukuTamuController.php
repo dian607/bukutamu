@@ -44,7 +44,7 @@ class BukuTamuController extends Controller
         return view('admin.bukutamu.edit', compact('guest'));
     }
 
-    public function update(Request $request, $id)
+  public function update(Request $request, $id)
     {
         $guest = Guest::findOrFail($id);
         
@@ -55,7 +55,14 @@ class BukuTamuController extends Controller
             'tujuan' => 'required',
         ]);
 
-        $guest->update($request->all());
+        $guest->update([
+            'nama' => $request->nama,
+            'instansi' => $request->instansi,
+            'no_hp' => $request->no_hp,
+            'email' => $request->email,
+            'tujuan' => $request->tujuan, 
+            'catatan' => $request->catatan, 
+        ]);
 
         return redirect()->route('admin.bukutamu.index')->with('success', 'Data tamu berhasil diperbarui!');
     }

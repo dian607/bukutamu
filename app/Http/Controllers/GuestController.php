@@ -7,7 +7,6 @@ use App\Models\Guest;
 
 class GuestController extends Controller
 {
-    // === FITUR BUKU TAMU TERINTEGRASI ===
     public function create()
     {
         return view('guest.form'); 
@@ -21,12 +20,14 @@ class GuestController extends Controller
             'no_hp'    => 'required|numeric',
             'email'    => 'nullable|email',
             'tujuan'   => 'required',
-            'catatan'  => 'nullable',
+            'catatan'  => 'required_if:tujuan,Keperluan lainnya',
             'ttd'      => 'required',
-            'kepuasan' => 'required|in:Puas,Tidak Puas', // Validasi kepuasan
+            'kepuasan' => 'required|in:Puas,Tidak Puas', 
+            'saran'    => 'nullable|string'
         ], [
             'no_hp.numeric' => 'Nomor HP/WA hanya boleh berisi angka.',
-            'email.email'   => 'Format alamat email tidak valid.'
+            'email.email'   => 'Format alamat email tidak valid.',
+            'catatan.required_if' => 'Catatan wajib diisi jika memilih Keperluan lainnya.'
         ]);
 
         Guest::create([
@@ -34,10 +35,11 @@ class GuestController extends Controller
             'instansi' => $request->instansi,
             'no_hp'    => $request->no_hp,
             'email'    => $request->email,
-            'tujuan'   => $request->tujuan,
-            'catatan'  => $request->catatan,
+            'tujuan'   => $request->tujuan, 
+            'catatan'  => $request->catatan, 
             'ttd'      => $request->ttd,
-            'kepuasan' => $request->kepuasan, // Menyimpan kepuasan
+            'kepuasan' => $request->kepuasan, 
+            'saran'    => $request->saran,
         ]);
 
         return redirect()->back()->with('success', 'Data berhasil dikirim! Terima kasih atas kunjungan dan penilaian Anda.');

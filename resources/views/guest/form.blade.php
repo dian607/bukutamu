@@ -4,62 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buku Tamu - Kanwil Kemenag Provinsi Jambi</title>
-    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    
     <style>
         body { background-color: #f4f7f6; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; overflow-x: hidden; }
         .top-header { background-color: #ffffff; box-shadow: 0 4px 20px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 999; }
         .text-kemenag { color: #0b5b9e; font-weight: 800; }
         .clock-box { background-color: #eef2f9; color: #0b5b9e; border-radius: 8px; font-weight: bold; }
-        
         .left-banner { background: linear-gradient(135deg, #4ade80 0%, #0284c7 100%); border-radius: 20px; position: relative; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
-        
-        @keyframes smoothFloat { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-8px) rotate(1.5deg); } }
-        .brand-wrapper { display: flex; align-items: center; gap: 20px; animation: smoothFloat 4s ease-in-out infinite; }
+        .brand-wrapper { display: flex; align-items: center; gap: 20px; }
         .animated-logo { max-width: 100px; height: auto; display: block; }
         .brand-text { font-size: 2.3rem; color: white; line-height: 1.1; letter-spacing: 1px; }
-
-        @keyframes pageTransition { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
-        .right-form { background: #ffffff; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.08); animation: pageTransition 0.6s cubic-bezier(0.23, 1, 0.32, 1) both; }
-        
+        .right-form { background: #ffffff; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.08); }
         .form-control, .form-select { background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px 15px; }
         .form-control:focus, .form-select:focus { border-color: #4ade80; box-shadow: 0 0 0 0.25rem rgba(74, 222, 128, 0.25); }
-        
-        .signature-wrapper { width: 100%; animation: fadeIn 0.8s ease-in-out; }
-        #sig-canvas { 
-            border: 2px dashed #0b5b9e; border-radius: 12px; cursor: crosshair; width: 100%; height: 250px;
-            background-color: #f8fafc; touch-action: none; transition: all 0.3s ease; box-shadow: inset 0 2px 5px rgba(0,0,0,0.03);
-        }
-        
-        /* Desain Radio Button Profesional */
-        .btn-check:checked + .btn-outline-success { background-color: #198754; color: white; border-color: #198754; box-shadow: 0 8px 20px rgba(25, 135, 84, 0.3); transform: translateY(-2px); }
-        .btn-check:checked + .btn-outline-danger { background-color: #dc3545; color: white; border-color: #dc3545; box-shadow: 0 8px 20px rgba(220, 53, 69, 0.3); transform: translateY(-2px); }
-        .btn-outline-success, .btn-outline-danger { transition: all 0.3s ease; border-width: 2px; }
-        
-        .btn-submit { background: linear-gradient(90deg, #1cb5e0 0%, #000851 100%); color: white; transition: all 0.3s; }
-        .btn-submit:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0, 8, 81, 0.3); color: white; }
+        #sig-canvas { border: 2px dashed #0b5b9e; border-radius: 12px; cursor: crosshair; width: 100%; height: 250px; background-color: #f8fafc; touch-action: none; transition: all 0.3s ease; }
+        .btn-check:checked + .btn-outline-success { background-color: #198754; color: white; border-color: #198754; }
+        .btn-check:checked + .btn-outline-danger { background-color: #dc3545; color: white; border-color: #dc3545; }
+        .btn-submit { background: linear-gradient(90deg, #1cb5e0 0%, #000851 100%); color: white; }
+        .btn-submit:hover { color: white; opacity: 0.9; }
         .custom-footer { background-color: #1a1e21; color: #d1d5db; font-size: 0.9rem; padding: 20px 0; border-top: 3px solid #4ade80; }
         .footer-ptsp { color: #4ade80; font-weight: 600; }
     </style>
 </head>
 <body class="d-flex flex-column min-vh-100">
-
     <header class="top-header py-3">
         <div class="container d-flex flex-wrap justify-content-between align-items-center">
             <div class="d-flex align-items-center mb-2 mb-md-0">
                 <img src="{{ asset('images/logo-kemenag.png') }}" alt="Logo" width="55" class="me-3">
-                <div>
-                    <h4 class="mb-0 text-kemenag fs-5 fs-md-4">Kanwil Kemenag Provinsi Jambi</h4>
-                    <span class="text-muted small">Buku Tamu Digital</span>
-                </div>
+                <div><h4 class="mb-0 text-kemenag fs-5 fs-md-4">Kanwil Kemenag Provinsi Jambi</h4><span class="text-muted small">Buku Tamu Digital</span></div>
             </div>
-            <div class="d-flex align-items-center mt-2 mt-md-0">
-                <div class="me-4 text-end d-none d-lg-block">
-                    <small class="text-muted fw-bold d-block mb-1" id="currentDate"></small>
-                    <div class="clock-box px-3 py-1 fs-6 d-inline-block" id="digitalClock"><i class="bi bi-clock"></i> 00:00:00</div>
-                </div>
+            <div class="d-flex align-items-center mt-2 mt-md-0 d-none d-lg-block">
+                <div class="text-end"><small class="text-muted fw-bold d-block mb-1" id="currentDate"></small><div class="clock-box px-3 py-1 fs-6 d-inline-block" id="digitalClock"><i class="bi bi-clock"></i> 00:00:00</div></div>
             </div>
         </div>
     </header>
@@ -73,17 +49,12 @@
                             <div>
                                 <span class="badge bg-light text-success mb-4 px-3 py-2 fs-6 rounded-pill">Selamat Datang!</span>
                                 <h1 class="fw-bold mb-4" style="font-size: 2.5rem; color: white;">Buku Tamu Digital</h1>
-                                <p class="fs-6 mb-5" style="line-height: 1.8; opacity: 0.9; color: white;">
-                                    Kami senang menyambut Anda. Silakan isi data diri Anda pada formulir di samping untuk keperluan registrasi dan penilaian layanan kami.
-                                </p>
+                                <p class="fs-6 mb-5" style="line-height: 1.8; opacity: 0.9; color: white;">Kami senang menyambut Anda. Silakan isi data diri Anda pada formulir di samping untuk keperluan registrasi dan penilaian layanan kami.</p>
                             </div>
                             <div class="mt-auto border-top pt-4" style="border-color: rgba(255, 255, 255, 0.3) !important;">
                                 <div class="brand-wrapper">
                                     <img src="{{ asset('images/kemenag-berdampak.png') }}" class="animated-logo">
-                                    <div class="brand-text">
-                                        <span style="font-weight: 900;">IKHLAS</span><br>
-                                        <span style="font-weight: 400;">BERAMAL</span>
-                                    </div>
+                                    <div class="brand-text"><span style="font-weight: 900;">IKHLAS</span><br><span style="font-weight: 400;">BERAMAL</span></div>
                                 </div>
                             </div>
                         </div>
@@ -95,20 +66,10 @@
                         <h3 class="mb-4 fw-bold text-kemenag border-bottom pb-3">Registrasi Kunjungan Tamu</h3>
                         
                         @if(session('success')) <div class="alert alert-success fw-bold"><i class="bi bi-check-circle-fill me-2"></i> {{ session('success') }}</div> @endif
-                        
-                        @if ($errors->any())
-                            <div class="alert alert-danger shadow-sm">
-                                <ul class="mb-0">
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
+                        @if ($errors->any()) <div class="alert alert-danger shadow-sm"><ul class="mb-0">@foreach ($errors->all() as $error) <li>{{ $error }}</li> @endforeach</ul></div> @endif
 
                         <form action="{{ route('guest.store') }}" method="POST" id="guestForm">
                             @csrf
-                            
                             <div class="row mb-4">
                                 <div class="col-md-6">
                                     <label class="form-label text-dark fw-bold"><i class="bi bi-person-fill me-1"></i> Nama Lengkap Tamu <span class="text-danger">*</span></label>
@@ -133,7 +94,7 @@
 
                             <div class="mb-4">
                                 <label class="form-label text-dark fw-bold"><i class="bi bi-list-check me-1"></i> Keperluan Kunjungan <span class="text-danger">*</span></label>
-                                <select name="tujuan" class="form-select" required>
+                                <select name="tujuan" id="tujuanSelect" class="form-select" required>
                                     <option value="" selected disabled>-- Pilih Keperluan Kunjungan Anda --</option>
                                     <option value="IZIN BELAJAR BAGI PNS KEMENAG">IZIN BELAJAR BAGI PNS KEMENAG</option>
                                     <option value="TUGAS BELAJAR BAGI PNS">TUGAS BELAJAR BAGI PNS</option>
@@ -179,8 +140,8 @@
                             </div>
 
                             <div class="mb-4">
-                                <label class="form-label text-dark fw-bold"><i class="bi bi-journal-text me-1"></i> Catatan Tambahan <span class="text-secondary fw-normal">(Optional)</span></label>
-                                <textarea name="catatan" class="form-control" rows="2" placeholder="Informasi tambahan atau rincian layanan jika diperlukan"></textarea>
+                                <label class="form-label text-dark fw-bold" id="label-catatan"><i class="bi bi-journal-text me-1"></i> Catatan Tambahan <span class="text-secondary fw-normal">(Optional)</span></label>
+                                <textarea name="catatan" id="catatanInput" class="form-control" rows="2" placeholder="Informasi tambahan atau rincian layanan jika diperlukan"></textarea>
                             </div>
 
                             <div class="mb-4">
@@ -188,14 +149,9 @@
                                 <div class="signature-wrapper">
                                     <canvas id="sig-canvas" class="shadow-sm"></canvas>
                                     <textarea name="ttd" id="sig-dataUrl" style="display:none;"></textarea>
-                                    
                                     <div class="d-flex justify-content-end gap-2 mt-3">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary fw-bold rounded-pill px-4 py-2" id="sig-undoBtn">
-                                            <i class="bi bi-arrow-counterclockwise me-1"></i> Undo
-                                        </button>
-                                        <button type="button" class="btn btn-sm btn-outline-danger fw-bold rounded-pill px-4 py-2" id="sig-clearBtn">
-                                            <i class="bi bi-eraser-fill me-1"></i> Hapus Semua
-                                        </button>
+                                        <button type="button" class="btn btn-sm btn-outline-secondary fw-bold rounded-pill px-4 py-2" id="sig-undoBtn"><i class="bi bi-arrow-counterclockwise me-1"></i> Undo</button>
+                                        <button type="button" class="btn btn-sm btn-outline-danger fw-bold rounded-pill px-4 py-2" id="sig-clearBtn"><i class="bi bi-eraser-fill me-1"></i> Hapus Semua</button>
                                     </div>
                                 </div>
                             </div>
@@ -205,16 +161,16 @@
                                 <div class="row g-3 text-center">
                                     <div class="col-6">
                                         <input type="radio" class="btn-check" name="kepuasan" id="puas" value="Puas" required>
-                                        <label class="btn btn-outline-success w-100 py-3 fw-bold rounded-4" for="puas">
-                                            <i class="bi bi-emoji-smile-fill fs-2 d-block mb-1"></i> PUAS
-                                        </label>
+                                        <label class="btn btn-outline-success w-100 py-3 fw-bold rounded-4" for="puas"><i class="bi bi-emoji-smile-fill fs-2 d-block mb-1"></i> PUAS</label>
                                     </div>
                                     <div class="col-6">
                                         <input type="radio" class="btn-check" name="kepuasan" id="tidak_puas" value="Tidak Puas" required>
-                                        <label class="btn btn-outline-danger w-100 py-3 fw-bold rounded-4" for="tidak_puas">
-                                            <i class="bi bi-emoji-frown-fill fs-2 d-block mb-1"></i> TIDAK PUAS
-                                        </label>
+                                        <label class="btn btn-outline-danger w-100 py-3 fw-bold rounded-4" for="tidak_puas"><i class="bi bi-emoji-frown-fill fs-2 d-block mb-1"></i> TIDAK PUAS</label>
                                     </div>
+                                </div>
+                                <div class="mt-4 border-top pt-3">
+                                    <label class="form-label text-dark fw-bold"><i class="bi bi-chat-left-text-fill me-1 text-primary"></i> Kritik dan Saran <span class="text-secondary fw-normal">(Optional)</span></label>
+                                    <textarea name="saran" class="form-control" rows="2" placeholder="Tuliskan kritik, masukan, atau saran Anda di sini..."></textarea>
                                 </div>
                             </div>
 
@@ -228,80 +184,42 @@
         </div>
     </main>
 
-    <footer class="custom-footer mt-auto text-center"><div class="container"><p class="mb-0">&copy; 2026 Kanwil Kemenag Provinsi Jambi. Dirancang dengan <i class="bi bi-suit-heart-fill text-danger"></i> untuk pelayanan prima. Powered by <span class="footer-ptsp">Tim PTSP Kanwil Kemenag Provinsi Jambi</span></p></div></footer>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        // LOGIKA DROPDOWN DINAMIS
+        document.getElementById('tujuanSelect').addEventListener('change', function() {
+            let catLabel = document.getElementById('label-catatan');
+            let catInput = document.getElementById('catatanInput');
+            if(this.value === 'Keperluan lainnya') {
+                catLabel.innerHTML = '<i class="bi bi-journal-text me-1"></i> Sebutkan Keperluan Anda <span class="text-danger">*</span>';
+                catInput.required = true;
+                catInput.placeholder = "Ketik keperluan spesifik Anda di sini...";
+                catInput.focus();
+            } else {
+                catLabel.innerHTML = '<i class="bi bi-journal-text me-1"></i> Catatan Tambahan <span class="text-secondary fw-normal">(Optional)</span>';
+                catInput.required = false;
+                catInput.placeholder = "Informasi tambahan atau rincian layanan jika diperlukan";
+            }
+        });
+
         // SCRIPT JAM
-        function updateClock() {
-            const now = new Date(); const days = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu']; const months = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
-            document.getElementById('currentDate').innerText = `${days[now.getDay()]}, ${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}`;
-            document.getElementById('digitalClock').innerHTML = `<i class="bi bi-clock me-1"></i> ${now.toLocaleTimeString('id-ID', { hour12: false })}`;
-        } setInterval(updateClock, 1000); updateClock();
+        function updateClock() { const now = new Date(); const days = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu']; const months = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember']; document.getElementById('currentDate').innerText = `${days[now.getDay()]}, ${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}`; document.getElementById('digitalClock').innerHTML = `<i class="bi bi-clock me-1"></i> ${now.toLocaleTimeString('id-ID', { hour12: false })}`; } setInterval(updateClock, 1000); updateClock();
 
         // SCRIPT CANVAS TANDA TANGAN
         (function() {
-            var canvas = document.getElementById("sig-canvas");
-            var ctx = canvas.getContext("2d");
-            var drawing = false;
-            var strokeHistory = [];
-
-            function saveState() {
-                strokeHistory.push(canvas.toDataURL());
-            }
-
-            function resizeCanvas() {
-                var rect = canvas.getBoundingClientRect();
-                canvas.width = rect.width;
-                canvas.height = rect.height;
-                ctx.lineWidth = 3;
-                ctx.lineCap = "round";
-                ctx.strokeStyle = "#000000";
-            }
-            window.addEventListener("resize", resizeCanvas);
-            resizeCanvas();
-            saveState(); 
-
-            function getPos(e) {
-                var rect = canvas.getBoundingClientRect();
-                var clientX = e.clientX || (e.touches && e.touches[0].clientX);
-                var clientY = e.clientY || (e.touches && e.touches[0].clientY);
-                return { x: clientX - rect.left, y: clientY - rect.top };
-            }
-
+            var canvas = document.getElementById("sig-canvas"); var ctx = canvas.getContext("2d"); var drawing = false; var strokeHistory = [];
+            function saveState() { strokeHistory.push(canvas.toDataURL()); }
+            function resizeCanvas() { var rect = canvas.getBoundingClientRect(); canvas.width = rect.width; canvas.height = rect.height; ctx.lineWidth = 3; ctx.lineCap = "round"; ctx.strokeStyle = "#000000"; }
+            window.addEventListener("resize", resizeCanvas); resizeCanvas(); saveState(); 
+            function getPos(e) { var rect = canvas.getBoundingClientRect(); var clientX = e.clientX || (e.touches && e.touches[0].clientX); var clientY = e.clientY || (e.touches && e.touches[0].clientY); return { x: clientX - rect.left, y: clientY - rect.top }; }
             function startPos(e) { e.preventDefault(); drawing = true; var pos = getPos(e); ctx.beginPath(); ctx.moveTo(pos.x, pos.y); draw(e); }
             function endPos(e) { e.preventDefault(); if(drawing) { drawing = false; ctx.beginPath(); saveState(); } }
             function draw(e) { e.preventDefault(); if (!drawing) return; var pos = getPos(e); ctx.lineTo(pos.x, pos.y); ctx.stroke(); ctx.beginPath(); ctx.moveTo(pos.x, pos.y); }
-
-            canvas.addEventListener("mousedown", startPos);
-            canvas.addEventListener("mouseup", endPos);
-            canvas.addEventListener("mousemove", draw);
-            
-            canvas.addEventListener("touchstart", startPos, { passive: false });
-            canvas.addEventListener("touchend", endPos, { passive: false });
-            canvas.addEventListener("touchmove", draw, { passive: false });
-
-            document.getElementById("sig-undoBtn").addEventListener("click", function() {
-                if (strokeHistory.length > 1) {
-                    strokeHistory.pop();
-                    var prevImg = new Image();
-                    prevImg.src = strokeHistory[strokeHistory.length - 1];
-                    prevImg.onload = function() {
-                        ctx.clearRect(0, 0, canvas.width, canvas.height);
-                        ctx.drawImage(prevImg, 0, 0);
-                    };
-                }
-            });
-
-            document.getElementById("sig-clearBtn").addEventListener("click", function() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                document.getElementById("sig-dataUrl").value = "";
-                strokeHistory = []; saveState();
-            });
-
-            document.getElementById("guestForm").addEventListener("submit", function() {
-                document.getElementById("sig-dataUrl").value = canvas.toDataURL();
-            });
+            canvas.addEventListener("mousedown", startPos); canvas.addEventListener("mouseup", endPos); canvas.addEventListener("mousemove", draw);
+            canvas.addEventListener("touchstart", startPos, { passive: false }); canvas.addEventListener("touchend", endPos, { passive: false }); canvas.addEventListener("touchmove", draw, { passive: false });
+            document.getElementById("sig-undoBtn").addEventListener("click", function() { if (strokeHistory.length > 1) { strokeHistory.pop(); var prevImg = new Image(); prevImg.src = strokeHistory[strokeHistory.length - 1]; prevImg.onload = function() { ctx.clearRect(0, 0, canvas.width, canvas.height); ctx.drawImage(prevImg, 0, 0); }; } });
+            document.getElementById("sig-clearBtn").addEventListener("click", function() { ctx.clearRect(0, 0, canvas.width, canvas.height); document.getElementById("sig-dataUrl").value = ""; strokeHistory = []; saveState(); });
+            document.getElementById("guestForm").addEventListener("submit", function() { document.getElementById("sig-dataUrl").value = canvas.toDataURL(); });
         })();
     </script>
 </body>

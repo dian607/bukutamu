@@ -5,16 +5,10 @@
 @push('styles')
 <style>
     .panel-container { background: white; border-radius: 20px; padding: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); border: 1px solid #f3f4f6; margin-bottom: 25px; }
-    
-    /* Card Statistik Minimalis */
     .stat-box { padding: 20px; border-radius: 15px; border: 1px solid #f1f5f9; display: flex; align-items: center; gap: 15px; background: #f8fafc; }
     .stat-icon-wrapper { width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; flex-shrink: 0; }
-    
-    /* Total Persentase Box */
     .total-score-box { background: linear-gradient(135deg, #111827 0%, #1f2937 100%); border-radius: 20px; color: white; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; padding: 30px; box-shadow: 0 10px 25px rgba(17,24,39,0.2); }
     .score-circle { width: 120px; height: 120px; border-radius: 50%; border: 8px solid rgba(74, 222, 128, 0.3); display: flex; align-items: center; justify-content: center; font-size: 2.5rem; font-weight: 900; color: #4ade80; margin-bottom: 15px; }
-    
-    /* Table */
     .table-modern th { background: #f9fafb; color: #6b7280; font-weight: 600; font-size: 0.85rem; text-transform: uppercase; border-bottom: 2px solid #e5e7eb; padding: 15px; }
     .table-modern td { padding: 15px; vertical-align: middle; color: #374151; font-weight: 500; border-bottom: 1px solid #f3f4f6; }
     .feedback-box { background: #fef3c7; border-left: 4px solid #f59e0b; padding: 10px 15px; border-radius: 0 8px 8px 0; font-size: 0.85rem; font-style: italic; color: #92400e; }
@@ -38,28 +32,19 @@
                 <div class="col-md-4">
                     <div class="stat-box">
                         <div class="stat-icon-wrapper bg-primary bg-opacity-10 text-primary"><i class="bi bi-people-fill"></i></div>
-                        <div>
-                            <div class="text-muted small fw-bold mb-1">Total Responden</div>
-                            <h4 class="mb-0 fw-bold">{{ $totalSurveys }}</h4>
-                        </div>
+                        <div><div class="text-muted small fw-bold mb-1">Total Responden</div><h4 class="mb-0 fw-bold">{{ $totalSurveys }}</h4></div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="stat-box">
                         <div class="stat-icon-wrapper bg-success bg-opacity-10 text-success"><i class="bi bi-emoji-smile-fill"></i></div>
-                        <div>
-                            <div class="text-muted small fw-bold mb-1">Total Puas</div>
-                            <h4 class="mb-0 fw-bold text-success">{{ $totalPuas }}</h4>
-                        </div>
+                        <div><div class="text-muted small fw-bold mb-1">Total Puas</div><h4 class="mb-0 fw-bold text-success">{{ $totalPuas }}</h4></div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="stat-box">
                         <div class="stat-icon-wrapper bg-danger bg-opacity-10 text-danger"><i class="bi bi-emoji-frown-fill"></i></div>
-                        <div>
-                            <div class="text-muted small fw-bold mb-1">Tidak Puas</div>
-                            <h4 class="mb-0 fw-bold text-danger">{{ $totalTidakPuas }}</h4>
-                        </div>
+                        <div><div class="text-muted small fw-bold mb-1">Tidak Puas</div><h4 class="mb-0 fw-bold text-danger">{{ $totalTidakPuas }}</h4></div>
                     </div>
                 </div>
             </div>
@@ -88,13 +73,15 @@
                     <td>
                         @if($survey->kepuasan == 'Puas')
                             <span class="badge bg-success bg-opacity-10 text-success border border-success px-3 py-2 rounded-pill"><i class="bi bi-emoji-smile-fill me-1"></i> Puas</span>
-                        @else
+                        @elseif($survey->kepuasan == 'Tidak Puas')
                             <span class="badge bg-danger bg-opacity-10 text-danger border border-danger px-3 py-2 rounded-pill"><i class="bi bi-emoji-frown-fill me-1"></i> Tidak Puas</span>
+                        @else
+                            <span class="text-muted">-</span>
                         @endif
                     </td>
                     <td>
-                        @if($survey->catatan)
-                            <div class="feedback-box">"{{ $survey->catatan }}"</div>
+                        @if($survey->saran)
+                            <div class="feedback-box">"{{ $survey->saran }}"</div>
                         @else
                             <span class="text-muted small fst-italic">Tidak memberikan masukan.</span>
                         @endif
